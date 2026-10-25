@@ -1,6 +1,6 @@
 (() => {
   const MIN_ENTRIES = 5;
-  const DEMO_SCORE = 72;
+  const ILLUSTRATIVE_SCORE = 72;
   const state = {
     transactions: [],
     shared: false,
@@ -156,14 +156,14 @@
   function renderReadiness(values) {
     const entries = state.transactions.length;
     const ready = entries >= MIN_ENTRIES;
-    const percent = ready ? DEMO_SCORE : 0;
+    const percent = ready ? ILLUSTRATIVE_SCORE : 0;
     const ring = ready ? `conic-gradient(var(--green) 0 ${percent}%, #eaf1ed ${percent}% 100%)` : "conic-gradient(#dfe7e2 0 100%)";
     ["ready-ring", "aside-ring"].forEach((id) => {
       const element = document.getElementById(id);
       if (element) element.style.background = ring;
     });
-    document.getElementById("ready-score").textContent = ready ? DEMO_SCORE : "--";
-    document.getElementById("aside-score").textContent = ready ? DEMO_SCORE : "--";
+    document.getElementById("ready-score").textContent = ready ? ILLUSTRATIVE_SCORE : "--";
+    document.getElementById("aside-score").textContent = ready ? ILLUSTRATIVE_SCORE : "--";
     document.getElementById("ready-progress").style.width = `${percent}%`;
     document.getElementById("aside-progress").style.width = `${percent}%`;
     document.getElementById("ready-status").textContent = ready ? "Almost ready" : "Not enough records";
@@ -224,8 +224,8 @@
       return;
     }
     copy.textContent = values.profit >= 0
-      ? "Recorded entries show more money in than out. Entries are self-reported and not verified, and this demo makes no recommendation or lending decision."
-      : "Recorded expenses are higher than recorded income. Entries are self-reported and not verified, and this demo makes no recommendation or lending decision.";
+      ? "Recorded entries show more money in than out. Entries are self-reported and not verified, and no recommendation or lending decision is made here."
+      : "Recorded expenses are higher than recorded income. Entries are self-reported and not verified, and no recommendation or lending decision is made here.";
   }
 
   function appendMessage(text, role, card) {
@@ -285,13 +285,13 @@
       if (entries < MIN_ENTRIES) {
         appendMessage(`You have ${entries} of ${MIN_ENTRIES} entries needed for an illustrative profile. Keep recording sales and expenses — nothing here is a real credit score or lending decision.`, "assistant");
       } else {
-        appendMessage(`Your demo profile is still building. Its ${DEMO_SCORE}/100 score and example K1,300 monthly repayment are illustrative only—not a real credit score, loan offer, or approval. An Absa loan officer would make any real decision.`, "assistant");
+        appendMessage(`Your profile is still building. Its ${ILLUSTRATIVE_SCORE}/100 score and example K1,300 monthly repayment are illustrative only—not a real credit score, loan offer, or approval. An Absa loan officer would make any real decision.`, "assistant");
       }
       navigate("readiness");
       return;
     }
     if (/tip|improve|record|help/.test(lowered) && !/\d/.test(lowered)) {
-      appendMessage("Keep recording sales and expenses regularly, and check that each entry is right. This demo uses self-reported data, so it cannot verify transactions or predict a real loan decision.", "assistant");
+      appendMessage("Keep recording sales and expenses regularly, and check that each entry is right. This assistant uses self-reported data, so it cannot verify transactions or predict a real loan decision.", "assistant");
       return;
     }
     const transaction = classify(message);
@@ -340,13 +340,13 @@
     state.transactions = state.transactions.filter((item) => item.id !== transactionId);
     undoButton.closest(".message-row")?.remove();
     refresh();
-    showToast("Your last demo entry was removed.");
+    showToast("Your last entry was removed.");
   });
 
   document.querySelector("#share-button").addEventListener("click", () => {
     const selected = [...document.querySelectorAll(".consent-toggle:checked")].length;
     if (!selected) {
-      showToast("Choose at least one item to include in your demo share.");
+      showToast("Choose at least one item to include in your share.");
       return;
     }
     document.querySelector("#share-dialog-copy").textContent = `${selected} selected item${selected === 1 ? "" : "s"} will appear in the officer preview on this device only. Nothing will be sent to Absa.`;
@@ -358,7 +358,7 @@
     state.withdrawn = false;
     dialog.close();
     updateOfficerView();
-    showToast("Your sample profile is ready in the demo officer view.");
+    showToast("Your sample profile is ready in the officer view.");
   });
   document.querySelectorAll(".consent-toggle").forEach((toggle) => {
     toggle.addEventListener("change", () => {
@@ -375,7 +375,7 @@
     state.withdrawn = true;
     document.querySelectorAll(".consent-toggle").forEach((toggle) => { toggle.checked = false; });
     updateOfficerView();
-    showToast("Demo access withdrawn. No information is shared.");
+    showToast("Access withdrawn. No information is shared.");
   };
   document.querySelector("#withdraw-consent").addEventListener("click", withdraw);
   document.querySelector("#withdraw-button").addEventListener("click", withdraw);
@@ -383,29 +383,29 @@
     button.addEventListener("click", () => {
       const action = button.dataset.decision;
       if (!state.shared) {
-        showToast("The applicant has not shared this demo profile.");
+        showToast("The applicant has not shared this profile.");
         return;
       }
-      document.querySelector("#audit-entry").textContent = `${action} recorded in demo by officer`;
-      showToast(`${action}. Demo action only; no lending decision was made.`);
+      document.querySelector("#audit-entry").textContent = `${action} recorded by officer`;
+      showToast(`${action}. No lending decision was made.`);
     });
   });
   document.querySelector("#language").addEventListener("change", (event) => {
     if (event.target.value !== "en") {
-      showToast("English demo content shown. Bemba and Nyanja translations are not yet available.");
+      showToast("English content shown. Bemba and Nyanja translations are not yet available.");
       event.target.value = "en";
     }
   });
-  document.querySelector(".attach-button").addEventListener("click", () => showToast("Statement upload is not connected in this demo."));
-  document.querySelector(".mic-button").addEventListener("click", () => showToast("Voice input is not available in this demo."));
+  document.querySelector(".attach-button").addEventListener("click", () => showToast("Statement upload is not connected yet."));
+  document.querySelector(".mic-button").addEventListener("click", () => showToast("Voice input is not available yet."));
 
   function updateOfficerView() {
     const banner = document.querySelector("#officer-banner");
     const consentChoices = [...document.querySelectorAll(".consent-toggle")].map((toggle) => toggle.checked);
     if (state.shared) {
-      banner.innerHTML = `<span class="banner-icon">${icon("check")}</span><div><strong>Sample profile shared by Kalaba M.</strong><p>Consent confirmed in this local demo. No data was sent to Absa or any external service.</p></div><span class="status-pill">Demo consent active</span>`;
+      banner.innerHTML = `<span class="banner-icon">${icon("check")}</span><div><strong>Sample profile shared by Kalaba M.</strong><p>Consent confirmed on this device. No data was sent to Absa or any external service.</p></div><span class="status-pill">Consent active</span>`;
     } else {
-      banner.innerHTML = `<span class="banner-icon">${icon(state.withdrawn ? "undo" : "info")}</span><div><strong>${state.withdrawn ? "Demo access withdrawn" : "Nothing has been shared yet"}</strong><p>${state.withdrawn ? "All demo consent toggles are off. The officer preview is locked." : "The applicant must choose and confirm what to share before it appears here."}</p></div><button class="button button-outline" data-screen="consent">Go to consent</button>`;
+      banner.innerHTML = `<span class="banner-icon">${icon(state.withdrawn ? "undo" : "info")}</span><div><strong>${state.withdrawn ? "Access withdrawn" : "Nothing has been shared yet"}</strong><p>${state.withdrawn ? "All consent toggles are off. The officer preview is locked." : "The applicant must choose and confirm what to share before it appears here."}</p></div><button class="button button-outline" data-screen="consent">Go to consent</button>`;
       banner.querySelector("[data-screen]")?.addEventListener("click", () => navigate("consent"));
     }
     document.querySelectorAll(".officer-grid").forEach((element) => {
