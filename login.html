@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-auth="guest" class="locked">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#af144b">
+    <meta name="description" content="Sign in to Ndalama Flow, the SME cash-flow assistant.">
+    <title>Sign in — Ndalama Flow</title>
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/guard.js"></script>
+  </head>
+  <body class="auth-body">
+    <main class="auth-shell">
+      <section class="auth-aside">
+        <a class="brand" href="login.html" aria-label="Ndalama Flow">
+          <span class="brand-mark" aria-hidden="true"><img src="coin-mark.webp" alt="" width="36" height="36"></span>
+          <span><strong>Ndalama</strong><small>FLOW</small></span>
+        </a>
+        <div class="auth-pitch">
+          <p class="eyebrow">CASH FLOW, IN PLAIN LANGUAGE</p>
+          <h1>Keep your business story in one place.</h1>
+          <p>Record sales in chat, keep a catalogue of what you sell, and watch your cash-flow picture build up. Everything stays on this device.</p>
+        </div>
+        <div class="auth-art" aria-hidden="true"></div>
+        <p class="auth-foot">A prototype for the Absa GenAI-Thon. Nothing is sent to Absa or any bank.</p>
+      </section>
+
+      <section class="auth-panel">
+        <div class="auth-card">
+          <div class="auth-tabs" role="tablist" aria-label="Account access">
+            <button type="button" class="auth-tab active" id="tab-signin" role="tab" aria-selected="true" aria-controls="form-signin">Sign in</button>
+            <button type="button" class="auth-tab" id="tab-signup" role="tab" aria-selected="false" aria-controls="form-signup">Create account</button>
+          </div>
+
+          <p class="auth-banner" id="auth-banner" role="alert"></p>
+
+          <form class="auth-form" id="form-signin" novalidate>
+            <h2>Welcome back</h2>
+            <p class="auth-sub">Use your username or the phone number you signed up with.</p>
+
+            <label class="auth-field" id="signin-identifier-field"><span>Username or phone</span><input id="signin-identifier" autocomplete="username" placeholder="kalaba or 097 123 4567"></label>
+            <p class="auth-error" id="signin-identifier-error" role="alert"></p>
+
+            <label class="auth-field" id="signin-pin-field"><span>6-digit PIN</span><input class="pin" type="password" id="signin-pin" inputmode="numeric" autocomplete="current-password" maxlength="6" pattern="\d{6}" placeholder="••••••"></label>
+            <p class="auth-error" id="signin-pin-error" role="alert"></p>
+
+            <button class="button button-primary auth-submit" type="submit">Sign in</button>
+            <p class="auth-hint">No account yet? Choose <strong>Create account</strong> above. Accounts live in this browser only.</p>
+          </form>
+
+          <form class="auth-form hidden" id="form-signup" novalidate>
+            <h2>Create your account</h2>
+            <p class="auth-sub">Your business, a username, a phone number and a 6-digit PIN.</p>
+
+            <label class="auth-field" id="signup-username-field"><span>Username</span><input id="signup-username" autocomplete="username" maxlength="20" placeholder="kalaba_trades"></label>
+            <p class="auth-error" id="signup-username-error" role="alert"></p>
+
+            <label class="auth-field" id="signup-business-field"><span>Business name</span><input id="signup-business" maxlength="60" autocomplete="organization" placeholder="Kalaba Trading"></label>
+            <p class="auth-error" id="signup-business-error" role="alert"></p>
+
+            <label class="auth-field" id="signup-phone-field"><span>Phone number</span><input id="signup-phone" type="tel" autocomplete="tel" placeholder="097 123 4567"></label>
+            <p class="auth-error" id="signup-phone-error" role="alert"></p>
+
+            <label class="auth-field" id="signup-pin-field"><span>6-digit PIN</span><input class="pin" type="password" id="signup-pin" inputmode="numeric" autocomplete="new-password" maxlength="6" pattern="\d{6}" placeholder="••••••"></label>
+            <p class="auth-error" id="signup-pin-error" role="alert"></p>
+
+            <label class="auth-field" id="signup-confirm-field"><span>Confirm PIN</span><input class="pin" type="password" id="signup-confirm" inputmode="numeric" autocomplete="new-password" maxlength="6" pattern="\d{6}" placeholder="••••••"></label>
+            <p class="auth-error" id="signup-confirm-error" role="alert"></p>
+
+            <button class="button button-primary auth-submit" type="submit">Create account</button>
+            <p class="auth-hint">Use 3–20 letters, numbers or underscores for the username. Your business name appears on the officer review. The PIN is hashed before it is saved.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script src="js/login.js"></script>
+  </body>
+</html>
