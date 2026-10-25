@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#af144b">
+    <meta name="description" content="Ndalama Flow turns everyday SME transactions into a clearer cash-flow picture. Local demo, no bank connection.">
+    <title>Ndalama Flow — SME cash-flow assistant</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9h16l-1.3-3.4A2 2 0 0 0 16.8 4.3H7.2a2 2 0 0 0-1.9 1.3L4 9Z"/><path d="M5.2 9v9.3a1.2 1.2 0 0 0 1.2 1.2h11.2a1.2 1.2 0 0 0 1.2-1.2V9"/><path d="M9.6 19.5v-4.8h4.8v4.8"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M6.5 20V12"/><path d="M12 20V5.5"/><path d="M17.5 20v-5.5"/></symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16.5a8.2 8.2 0 1 1 16 0"/><path d="M12 16.5l4-4.6"/><circle cx="12" cy="17.4" r="1.4"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.6 19 6.2v5.6c0 4-3 6.9-7 8.6-4-1.7-7-4.6-7-8.6V6.2l7-2.6Z"/><path d="m9 12 2.1 2.1L15.3 10"/></symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/><path d="M3.5 12.7h17"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.4" width="14" height="9.6" rx="2"/><path d="M8.6 10.4V8a3.4 3.4 0 0 1 6.8 0v2.4"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M3.6 12h16.8"/><path d="M12 3.6c2.5 2.3 3.9 5.2 3.9 8.4s-1.4 6.1-3.9 8.4c-2.5-2.3-3.9-5.2-3.9-8.4S9.5 5.9 12 3.6Z"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.6 17V11a5.4 5.4 0 0 1 10.8 0v6"/><path d="M4.8 17h14.4"/><path d="M10 20a2.2 2.2 0 0 0 4 0"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.8 13.8 9l5.2 1.8-5.2 1.8L12 17.8l-1.8-5.2L5 10.8 10.2 9 12 3.8Z"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-in" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9.5 7H17v7.5"/></symbol>
+      <symbol id="i-out" viewBox="0 0 24 24"><path d="M17 7 7 17"/><path d="M14.5 17H7V9.5"/></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8.5h12.5"/><path d="m13.8 5.3 3.2 3.2-3.2 3.2"/><path d="M20 15.5H7.5"/><path d="m10.2 12.3-3.2 3.2 3.2 3.2"/></symbol>
+      <symbol id="i-clip" viewBox="0 0 24 24"><path d="M19.5 11.6 12 19.1a4.4 4.4 0 0 1-6.2-6.2l7.5-7.5a3 3 0 0 1 4.3 4.3l-7.5 7.5a1.6 1.6 0 0 1-2.3-2.3l6.7-6.7"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9.4" y="3.4" width="5.2" height="10" rx="2.6"/><path d="M6.2 11.6a5.8 5.8 0 0 0 11.6 0"/><path d="M12 17.4v3.2"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="m20.4 4.2-8.7 15.6-2.4-6.5-6.5-2.4L20.4 4.2Z"/><path d="m9.3 13.3 4.7-4.7"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><path d="M6 12h.01M12 12h.01M18 12h.01"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 11v5.4"/><path d="M12 7.9h.01"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.2 12.4 4.4 4.4L18.8 7.6"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4.4 20.8 19.6H3.2L12 4.4Z"/><path d="M12 9.4v4.4"/><path d="M12 16.9h.01"/></symbol>
+      <symbol id="i-undo" viewBox="0 0 24 24"><path d="M4.5 9.2h8.7a5.4 5.4 0 0 1 0 10.8H8.4"/><path d="M8.2 5.2 4.2 9.2l4 4"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.4 6.4 11.2 11.2"/><path d="M17.6 6.4 6.4 17.6"/></symbol>
+      <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11"/><path d="M9 12h11"/><path d="M9 17.5h11"/><path d="M4.6 6.5h.01"/><path d="M4.6 12h.01"/><path d="M4.6 17.5h.01"/></symbol>
+    </svg>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#chat" aria-label="Ndalama Flow home">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span><strong>Ndalama</strong><small>FLOW</small></span>
+        </a>
+        <div class="workspace-label">YOUR WORKSPACE</div>
+        <nav class="nav-list">
+          <button class="nav-item active" data-screen="chat"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#i-store"/></svg></span>My business</button>
+          <button class="nav-item" data-screen="dashboard"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span>Cash flow</button>
+          <button class="nav-item" data-screen="readiness"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#i-gauge"/></svg></span>Loan readiness</button>
+          <button class="nav-item" data-screen="consent"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span>Share with Absa</button>
+          <button class="nav-item officer-link" data-screen="officer"><span class="nav-icon"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span>Officer view <span class="demo-mini">DEMO</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="secure-note"><span class="secure-icon" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span><div><strong>Your data stays yours</strong><p>You choose what to share, and when.</p></div></div>
+          <div class="profile"><span class="avatar">KM</span><span><strong>Kalaba M.</strong><small>Charcoal & grocery trader</small></span><span class="more"><svg class="icon" aria-hidden="true"><use href="#i-more"/></svg></span></div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark">N</span><strong>Ndalama Flow</strong></div>
+          <div class="breadcrumb"><span>My business</span><span class="crumb-sep">/</span><strong id="current-page">Overview</strong></div>
+          <div class="top-actions">
+            <span class="demo-badge"><span></span> Demo · local only</span>
+            <label class="language-select" aria-label="Choose language">
+              <span class="language-globe"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg></span>
+              <select id="language"><option value="en">EN</option><option value="bem">BEM</option><option value="nya">NYA</option></select>
+              <span class="chevron"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></span>
+            </label>
+            <button class="icon-button notification-button" aria-label="Notifications"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><i></i></button>
+          </div>
+        </header>
+
+        <div class="screen-content">
+          <div class="screen" id="screen-chat">
+            <div class="page-heading">
+              <div><p class="eyebrow">SUNDAY, 25 OCTOBER</p><h1>Good morning, Kalaba <span class="wave"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></span></h1><p class="subheading">A little record-keeping today makes your business story clearer.</p></div>
+              <button class="button button-outline" data-screen="dashboard"><span><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span> View cash flow</button>
+            </div>
+            <div class="overview-strip">
+              <div class="overview-copy"><span class="live-dot"></span><span>Your business snapshot</span><span class="period-label">LAST 30 DAYS <span><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></span></span></div>
+              <div class="overview-metrics">
+                <div class="metric"><span class="metric-label"><i class="metric-dot green"></i>Money in</span><strong id="mini-income">K0</strong></div>
+                <div class="metric"><span class="metric-label"><i class="metric-dot red"></i>Money out</span><strong id="mini-expenses">K0</strong></div>
+                <div class="metric"><span class="metric-label">You kept</span><strong id="mini-profit">K0</strong></div>
+                <div class="snapshot-link"><button class="text-link" data-screen="dashboard">Full breakdown <span><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg></span></button></div>
+              </div>
+            </div>
+
+            <div class="chat-layout">
+              <section class="chat-panel card">
+                <div class="chat-header"><div class="assistant-avatar">n<span><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></span></div><div><strong>Your Ndalama assistant</strong><small><i class="online-dot"></i> Here to help with your business</small></div><button class="icon-button chat-menu" aria-label="More options"><svg class="icon" aria-hidden="true"><use href="#i-more"/></svg></button></div>
+                <div class="chat-thread" id="chat-thread" aria-live="polite">
+                  <div class="chat-date"><span>Today, 25 October</span></div>
+                  <div class="message-row assistant-row"><div class="assistant-avatar small">n<span><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></span></div><div class="message-content"><div class="bubble assistant-bubble">Good morning, Kalaba! How is business today? Tell me about a sale or expense and I’ll add it to your records. Nothing has been recorded yet, so this is a clean start.</div><span class="message-time">09:14</span></div></div>
+                </div>
+                <div class="chat-footer">
+                  <div class="quick-prompts"><button data-prompt="Add a sale"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Add a sale</button><button data-prompt="Add an expense"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg> Add an expense</button><button data-prompt="How are my loan chances?"><svg class="icon" aria-hidden="true"><use href="#i-gauge"/></svg> My loan chances</button></div>
+                  <form class="message-form" id="message-form"><button type="button" class="attach-button" aria-label="Attach a statement" title="Statement uploads are not connected in this demo"><svg class="icon" aria-hidden="true"><use href="#i-clip"/></svg></button><input id="message-input" autocomplete="off" placeholder="Tell me about a sale or expense..." aria-label="Message your assistant"><button type="button" class="mic-button" aria-label="Voice input is not available in this demo"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg></button><button class="send-button" type="submit" aria-label="Send message"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg></button></form>
+                  <p class="input-footnote"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg> Try “Paid K250 for transport” or “Sold vegetables for K180”</p>
+                </div>
+              </section>
+              <aside class="chat-aside">
+                <section class="card readiness-card">
+                  <div class="card-topline"><span class="section-kicker">YOUR PROGRESS</span><span class="info-mark" title="Illustrative score, shown after five recorded entries">i</span></div>
+                  <div class="readiness-body"><div class="score-ring small-ring" id="aside-ring"><div><strong id="aside-score">--</strong><span>/100</span></div></div><div><span class="status-pill" id="aside-status">Not enough records</span><p id="aside-copy">Nothing recorded yet. Add a sale or expense to start building your picture.</p></div></div>
+                  <div class="progress-track"><span id="aside-progress" style="width:0"></span></div>
+                  <button class="text-link" data-screen="readiness">See what this means <span>→</span></button>
+                </section>
+                <section class="card nudge-card"><div class="nudge-icon"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></div><div><span class="section-kicker">A QUICK TIP</span><p>Keep adding your daily sales. A few more weeks can make your cash-flow picture more complete.</p><button class="text-link" data-prompt="How can I improve my records?">More helpful tips <span>→</span></button></div></section>
+                <div class="privacy-foot"><span class="privacy-icon"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span><span>Your information is private. Nothing is shared without your permission.</span></div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="screen hidden" id="screen-dashboard">
+            <div class="page-heading"><div><p class="eyebrow">YOUR BUSINESS, AT A GLANCE</p><h1>Cash flow</h1><p class="subheading">A simple picture of what came in and went out.</p></div><button class="button button-outline" data-screen="chat"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Add a transaction</button></div>
+            <div class="dashboard-stats">
+              <article class="stat-card card"><div class="stat-head"><span>Money in</span><span class="stat-icon income-icon"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg></span></div><strong id="dash-income">K0</strong><small id="dash-income-note"><span class="muted-text">Nothing recorded yet</span></small><div class="sparkline income-spark hidden"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+              <article class="stat-card card"><div class="stat-head"><span>Money out</span><span class="stat-icon expense-icon"><svg class="icon" aria-hidden="true"><use href="#i-out"/></svg></span></div><strong id="dash-expenses">K0</strong><small id="dash-expense-note"><span class="muted-text">Nothing recorded yet</span></small><div class="sparkline expense-spark hidden"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+              <article class="stat-card card"><div class="stat-head"><span>You kept</span><span class="stat-icon profit-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span></div><strong id="dash-profit">K0</strong><small><span class="muted-text">Money in, less money out</span></small><div class="profit-meter"><span id="profit-meter-fill" style="width:0"></span></div></article>
+            </div>
+            <div class="dashboard-grid">
+              <section class="card chart-card"><div class="section-header"><div><h2>Your weekly flow</h2><p>Income and expenses over the last 4 weeks</p></div><span class="chart-legend"><i class="legend-income"></i>Income <i class="legend-expense"></i>Expenses</span></div><div class="chart-wrap"><div class="y-axis"><span>K0</span><span>K0</span><span>K0</span><span>K0</span></div><div class="chart-area"><div class="grid-line line-1"></div><div class="grid-line line-2"></div><div class="grid-line line-3"></div><div class="grid-line line-4"></div><p class="chart-empty" id="chart-empty">No entries yet. Add a sale or expense in chat to see your weekly flow.</p><div class="bar-groups is-empty" id="bar-groups"><div class="bar-group"><i class="bar income-bar"></i><i class="bar expense-bar"></i><span>Week 1</span></div><div class="bar-group"><i class="bar income-bar"></i><i class="bar expense-bar"></i><span>Week 2</span></div><div class="bar-group"><i class="bar income-bar"></i><i class="bar expense-bar"></i><span>Week 3</span></div><div class="bar-group"><i class="bar income-bar"></i><i class="bar expense-bar"></i><span>This week</span></div></div></div></div></section>
+              <section class="card category-card"><div class="section-header"><div><h2>Where money goes</h2><p>Your recorded expenses</p></div><button class="icon-button" aria-label="Category details"><svg class="icon" aria-hidden="true"><use href="#i-more"/></svg></button></div><div class="category-list" id="category-list"><p class="empty-note">Nothing recorded yet. Add an expense in chat to see where your money goes.</p></div><div class="category-note"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg> Keep recording expenses to make this breakdown more complete.</div></section>
+            </div>
+            <section class="card transactions-card"><div class="section-header"><div><h2>Recent activity</h2><p>Transactions you have recorded</p></div><span class="synthetic-label">YOUR ENTRIES</span></div><div class="transaction-table" id="transaction-list"></div></section>
+          </div>
+
+          <div class="screen hidden" id="screen-readiness">
+            <div class="page-heading"><div><p class="eyebrow">A CLEARER PICTURE, ONE STEP AT A TIME</p><h1>Your loan readiness</h1><p class="subheading">An estimate to help you understand your cash flow—not a lending decision.</p></div><span class="illustrative-tag">Illustrative estimate</span></div>
+            <div class="readiness-grid">
+              <section class="card score-card"><span class="section-kicker">DEMO CASH-FLOW PROFILE</span><div class="large-score"><div class="score-ring" id="ready-ring"><div><strong id="ready-score">--</strong><span>/100</span></div></div><div><span class="status-pill" id="ready-status">Not enough records</span><h2 id="ready-title">Just getting started</h2><p id="ready-copy">Nothing recorded yet. Add at least five sales and expenses to see an illustrative cash-flow profile.</p></div></div><div class="score-scale"><span>Needs more records</span><span>Stronger picture</span></div><div class="progress-track"><span id="ready-progress" style="width:0"></span></div><div class="estimate-box hidden" id="estimate-box"><span class="estimate-icon"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg></span><div><span>Example loan & repayment estimate</span><strong>K15,000 <small>loan · about K1,300 / month</small></strong><p>Illustrative only, based on entries recorded in this demo. Not an offer or approval.</p></div></div></section>
+              <section class="card factors-card"><div class="section-header"><div><h2>What shaped this picture?</h2><p>Example factors shown transparently</p></div></div><p class="empty-note" id="factor-empty">Add entries in chat and the factors behind this picture will appear here.</p><div class="factor-row factor-live hidden"><span class="factor-icon factor-positive"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg></span><div><strong>Recorded sales</strong><p>Your recorded income appears across your entries.</p></div><span class="factor-status positive-text">Helps</span></div><div class="factor-row factor-live hidden"><span class="factor-icon factor-positive"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span><div><strong>Money left after expenses</strong><p>Your recorded income is higher than recorded expenses.</p></div><span class="factor-status positive-text">Helps</span></div><div class="factor-row factor-live hidden"><span class="factor-icon factor-caution"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></span><div><strong>Length of records</strong><p>A handful of entries is still a short history.</p></div><span class="factor-status caution-text">More needed</span></div><div class="factor-row factor-live hidden"><span class="factor-icon factor-caution"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span><div><strong>Transactions not verified</strong><p>Chat entries are self-reported in this demo.</p></div><span class="factor-status caution-text">More needed</span></div><div class="factor-disclaimer">This demo does not calculate a real credit score or determine eligibility.</div></section>
+            </div>
+            <section class="card next-steps-card"><div class="next-step-icon"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></div><div><span class="section-kicker">SMALL STEPS THAT HELP</span><h2>Keep your business story growing</h2><div class="tip-grid"><div><span>01</span><p>Record sales and expenses regularly for a more complete picture.</p></div><div><span>02</span><p>Check entries as you go so your records reflect your business.</p></div><div><span>03</span><p>Only share details with a bank when you feel ready.</p></div></div></div></section>
+            <button class="button button-primary" data-screen="consent">Choose what to share <span>→</span></button>
+          </div>
+
+          <div class="screen hidden" id="screen-consent">
+            <div class="page-heading"><div><p class="eyebrow">YOU ARE IN CONTROL</p><h1>Choose what to share</h1><p class="subheading">You decide what an Absa loan officer can see. Nothing is shared until you confirm below.</p></div><span class="privacy-pill"><span><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span> Private by default</span></div>
+            <div class="consent-layout">
+              <section class="card consent-card"><div class="consent-intro"><span class="consent-shield"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span><div><h2>Your information, your choice</h2><p>Switch on only the information you want to include. You can withdraw access later.</p></div></div>
+                <label class="consent-row"><span class="consent-data-icon"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg></span><span class="consent-copy"><strong>Cash-flow summary</strong><small>Money in, money out, and weekly patterns</small></span><input type="checkbox" class="consent-toggle"><span class="toggle-ui"></span></label>
+                <label class="consent-row"><span class="consent-data-icon"><svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg></span><span class="consent-copy"><strong>Recorded transactions</strong><small>Sales and expenses you entered in this demo</small></span><input type="checkbox" class="consent-toggle"><span class="toggle-ui"></span></label>
+                <label class="consent-row"><span class="consent-data-icon"><svg class="icon" aria-hidden="true"><use href="#i-gauge"/></svg></span><span class="consent-copy"><strong>Illustrative profile</strong><small>Demo factors and the example estimate</small></span><input type="checkbox" class="consent-toggle"><span class="toggle-ui"></span></label>
+                <label class="consent-row"><span class="consent-data-icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></span><span class="consent-copy"><strong>Data quality notes</strong><small>What may be missing or needs a closer look</small></span><input type="checkbox" class="consent-toggle"><span class="toggle-ui"></span></label>
+                <div class="consent-confirm"><p><span><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span> This prototype runs entirely in your browser. No application is sent to Absa.</p><div><button class="button button-outline hidden" id="withdraw-consent">Withdraw access</button> <button class="button button-primary" id="share-button">Review & share <span>→</span></button></div></div>
+              </section>
+              <aside class="consent-aside"><div class="card share-summary"><span class="section-kicker">BEFORE YOU SHARE</span><h2>Here’s what happens</h2><div class="share-step"><span>1</span><p>You choose the information above.</p></div><div class="share-step"><span>2</span><p>Review your selection before confirming.</p></div><div class="share-step"><span>3</span><p>A loan officer reviews it. They—not AI—make any lending decision.</p></div><div class="share-lock"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg> <span>You can withdraw demo access at any time.</span></div></div><div class="consent-help"><span>Need a hand?</span><p>Talk to your assistant if you have questions about your records.</p><button class="text-link" data-screen="chat">Back to chat <span>→</span></button></div></aside>
+            </div>
+          </div>
+
+          <div class="screen hidden" id="screen-officer">
+            <div class="page-heading"><div><p class="eyebrow">ABSA · INTERNAL DEMO</p><h1>Application review</h1><p class="subheading">A sample view of information shared with a loan officer.</p></div><span class="illustrative-tag">Demo applicant · Local only</span></div>
+            <div class="officer-banner" id="officer-banner"><span class="banner-icon"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span><div><strong>Nothing has been shared yet</strong><p>The applicant must choose and confirm what to share before it appears here.</p></div><button class="button button-outline" data-screen="consent">Go to consent</button></div>
+            <div class="officer-grid">            <section class="card applicant-card"><div class="applicant-head"><span class="avatar large-avatar">KM</span><div><span class="section-kicker">DEMO PROFILE</span><h2>Kalaba M.</h2><p>Charcoal & grocery trader · Lusaka</p></div><span class="risk-pill">Demo profile</span></div><div class="applicant-stats" id="officer-cashflow"><div><span>Recorded income</span><strong id="officer-income">K0</strong></div><div><span>Recorded expenses</span><strong id="officer-expenses">K0</strong></div><div><span>Cash-flow difference</span><strong id="officer-profit">K0</strong></div></div><div class="officer-chart" id="officer-chart"><div class="section-header"><div><h2>Monthly cash flow</h2><p>No monthly history in this demo</p></div></div><p class="empty-note">Monthly statements are not connected. Only entries recorded in chat appear here.</p></div><div class="officer-transactions hidden" id="officer-transactions"><div class="section-header"><div><h2>Recorded transactions</h2><p>Entries supplied in this demo</p></div></div><div id="officer-transaction-list"></div></div></section>
+            <aside class="officer-side"><section class="card recommendation-card" id="officer-profile"><div class="section-header"><div><span class="section-kicker">ASSISTANT SUMMARY</span><h2>Review the records</h2></div><span class="ai-mark"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg> AI</span></div><p class="recommendation-copy" id="officer-copy">No entries have been recorded yet, so there is nothing to review.</p><div class="risk-flags" id="officer-quality"><strong>Things to check</strong><div><svg class="icon risk-icon" aria-hidden="true"><use href="#i-alert"/></svg> Short record history</div><div><svg class="icon risk-icon" aria-hidden="true"><use href="#i-alert"/></svg> Entries are self-reported</div><div><svg class="icon risk-icon" aria-hidden="true"><use href="#i-alert"/></svg> Demo data only</div></div><div class="decision-actions"><button class="button button-outline" data-decision="Request more information">Request more info</button><button class="button button-primary" data-decision="Review noted">Record review</button></div><p class="human-note">A human officer makes any real lending decision.</p></section><button class="withdraw-button" id="withdraw-button"><svg class="icon" aria-hidden="true"><use href="#i-undo"/></svg> Withdraw demo access</button></aside></div>
+            <section class="card audit-card"><div><span class="section-kicker">DEMO AUDIT TRAIL</span><h2>Activity</h2></div><div class="audit-row"><span class="audit-dot"></span><span id="audit-entry">Demo profile created — no entries recorded</span><time>25 Oct 2026</time></div><p>Prototype activity only. No real customer data or bank system is connected.</p></section>
+          </div>
+        </div>
+        <footer class="app-footer"><span>© 2026 Ndalama Flow</span><span><i></i> Built for the Absa GenAI-Thon · Demo only</span><button data-screen="readiness">How the estimate works</button></footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="confirm-dialog" id="share-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button><span class="dialog-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span><p class="eyebrow">YOUR CHOICE, CONFIRMED</p><h2>Share this sample profile?</h2><p id="share-dialog-copy">Your selected demo information will appear in the officer preview on this device. It will not be sent to Absa.</p><div class="dialog-actions"><button class="button button-outline" value="cancel">Not yet</button><button class="button button-primary" id="confirm-share" value="confirm">Confirm demo share</button></div></form></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
